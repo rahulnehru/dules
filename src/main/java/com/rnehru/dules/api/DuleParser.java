@@ -1,10 +1,13 @@
 package com.rnehru.dules.api;
 
+import com.rnehru.dules.parser.Parser;
 import com.rnehru.dules.rule.Rule;
 
-public interface DuleParser {
+class DuleParser {
 
-    Rule parseRule(String ruleRep);
+    private Parser parser = new Parser();
 
-
+    public Rule parse(String ruleRep) {
+        return parser.parse(ruleRep);
+    }
 }

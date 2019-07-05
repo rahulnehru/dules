@@ -1,4 +1,4 @@
-package com.rnehru.dules.api;
+package com.rnehru.dules.higher;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.rule.Rule;
