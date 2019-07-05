@@ -1,4 +1,4 @@
-package com.rnehru.dules.model.logicalrule;
+package com.rnehru.dules.model.logical;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.model.Rule;
