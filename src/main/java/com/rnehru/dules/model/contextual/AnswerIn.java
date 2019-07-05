@@ -5,7 +5,7 @@ import com.rnehru.dules.context.Page;
 
 import java.util.List;
 
-public class AnswerIn extends PageRule {
+public class AnswerIn extends DependsOnPageItem {
 
     private String question;
     private List<String> options;

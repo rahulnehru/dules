@@ -5,7 +5,7 @@ import com.rnehru.dules.context.Page;
 
 import java.util.Objects;
 
-public class AnswerExists extends PageRule {
+public class AnswerExists extends DependsOnPageItem {
 
     private String question;
 

@@ -5,7 +5,7 @@ import com.rnehru.dules.context.Page;
 
 import java.util.Objects;
 
-public class PageExists extends PageRule {
+public class PageExists extends DependsOnPageItem {
 
 
     public PageExists(String parentPage) {

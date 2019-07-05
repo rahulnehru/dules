@@ -2,12 +2,9 @@ package com.rnehru.dules.model.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.model.Rule;
 
-public class AllPagesComplete extends PageRule {
-
-    public AllPagesComplete() {
-        this.parentPage = null;
-    }
+public class AllPagesComplete implements Rule {
 
     @Override
     public boolean evaluate(Context context) {

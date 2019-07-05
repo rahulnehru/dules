@@ -3,7 +3,7 @@ package com.rnehru.dules.model.contextual;
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
 
-public class PageComplete extends PageRule {
+public class PageComplete extends DependsOnPageItem {
 
     public PageComplete(String parentPage) {
         this.parentPage = parentPage;
