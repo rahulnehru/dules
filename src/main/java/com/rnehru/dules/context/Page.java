@@ -22,7 +22,7 @@ public class Page {
     }
 
     public boolean isComplete() {
-        if(null != questionsAndAnswers) {
+        if(null != questionsAndAnswers && !questionsAndAnswers.isEmpty()) {
             return !this.getQuestionsAndAnswers().containsValue(null);
         } else {
             return false;

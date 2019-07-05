@@ -1,10 +1,9 @@
-package com.rnehru.dules.model.pagerule;
+package com.rnehru.dules.model.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
 
 import java.util.List;
-import java.util.Objects;
 
 public class AnswerIn extends PageRule {
 

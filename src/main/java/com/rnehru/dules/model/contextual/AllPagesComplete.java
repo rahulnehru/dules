@@ -1,4 +1,4 @@
-package com.rnehru.dules.model.pagerule;
+package com.rnehru.dules.model.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
@@ -18,6 +18,8 @@ public class AllPagesComplete extends PageRule {
                     isTrue = false;
                 }
             }
+        } else {
+            isTrue = false;
         }
         return isTrue;
     }

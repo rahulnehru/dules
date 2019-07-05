@@ -1,31 +1,29 @@
-package com.rnehru.dules.model.pagerule;
+package com.rnehru.dules.model.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
 
-import java.util.List;
 import java.util.Objects;
 
-public class AnswerExists extends PageRule {
+public class AnswerMatches extends PageRule {
 
+    private String answer;
     private String question;
 
-    public AnswerExists(String parentPage, String question) {
+    public AnswerMatches(String parentPage, String answer, String question) {
         this.parentPage = parentPage;
+        this.answer = answer;
         this.question = question;
     }
 
     @Override
     public boolean evaluate(Context context) {
         boolean isTrue = false;
-        if (null != context.getPages() && null != context.getPages() && !context.getPages().isEmpty()) {
+        if(null != context && null != context.getPages() && !context.getPages().isEmpty()) {
             for (Page page : context.getPages()) {
                 if (null != page.getQuestionsAndAnswers() &&
                         Objects.equals(page.getName(), parentPage) &&
-                        page.getQuestionsAndAnswers().containsKey(question) &&
-                        null != page.getQuestionsAndAnswers().get(question) &&
-                        !page.getQuestionsAndAnswers().get(question).isEmpty()
-                ) {
+                        Objects.equals(page.getQuestionsAndAnswers().get(question), answer)) {
                     isTrue = true;
                 }
             }
