@@ -18,7 +18,7 @@ public class AnswerExists extends PageRule {
     @Override
     public boolean evaluate(Context context) {
         boolean isTrue = false;
-        if (null != context.getPages()) {
+        if (null != context.getPages() && null != context.getPages() && !context.getPages().isEmpty()) {
             for (Page page : context.getPages()) {
                 if (null != page.getQuestionsAndAnswers() &&
                         Objects.equals(page.getName(), parentPage) &&
@@ -29,9 +29,7 @@ public class AnswerExists extends PageRule {
                     isTrue = true;
                 }
             }
-            return isTrue;
-        } else {
-            return isTrue;
         }
+        return isTrue;
     }
 }

@@ -20,11 +20,13 @@ public class AnswerMatches extends PageRule {
     @Override
     public boolean evaluate(Context context) {
         boolean isTrue = false;
-        for (Page page : context.getPages()) {
-            if(null != page.getQuestionsAndAnswers() &&
-                    Objects.equals(page.getName(), parentPage) &&
-                    Objects.equals(page.getQuestionsAndAnswers().get(question), answer)){
-                isTrue = true;
+        if(null != context && null != context.getPages() && !context.getPages().isEmpty()) {
+            for (Page page : context.getPages()) {
+                if (null != page.getQuestionsAndAnswers() &&
+                        Objects.equals(page.getName(), parentPage) &&
+                        Objects.equals(page.getQuestionsAndAnswers().get(question), answer)) {
+                    isTrue = true;
+                }
             }
         }
         return isTrue;

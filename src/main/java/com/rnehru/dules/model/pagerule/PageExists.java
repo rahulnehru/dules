@@ -24,8 +24,7 @@ public class PageExists extends PageRule {
                     isTrue = true;
                 }
             }
-            return isTrue;
         }
-        else { return isTrue; }
+        return isTrue;
     }
 }
