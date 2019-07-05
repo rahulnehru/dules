@@ -1,5 +1,6 @@
 package com.rnehru.dules.model.logicalrule;
 
+import com.rnehru.dules.context.Context;
 import com.rnehru.dules.model.Rule;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Not extends LogicalRule {
     }
 
     @Override
-    public boolean evaluate(String context) {
+    public boolean evaluate(Context context) {
         if(null != rules && rules.size()==1 && null != rules.get(0)) {
             return !rules.get(0).evaluate(context);
         }

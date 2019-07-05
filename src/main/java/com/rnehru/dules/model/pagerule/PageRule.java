@@ -6,7 +6,5 @@ abstract class PageRule implements Rule {
 
     protected String childPage;
     protected String parentPage;
-    protected String parentQuestion;
-    protected String parentAnswer;
 
 }

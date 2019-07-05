@@ -1,5 +1,6 @@
 package com.rnehru.dules.model.logicalrule;
 
+import com.rnehru.dules.context.Context;
 import com.rnehru.dules.model.Rule;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public class And extends LogicalRule {
     }
 
     @Override
-    public boolean evaluate(String context) {
+    public boolean evaluate(Context context) {
         int trueRules = 0;
         for (Rule rule : rules) {
             if(rule.evaluate(context)) {

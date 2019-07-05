@@ -1,5 +1,6 @@
 package com.rnehru.dules.model.logicalrule;
 
+import com.rnehru.dules.context.Context;
 import com.rnehru.dules.model.Rule;
 import org.junit.Test;
 
@@ -10,16 +11,18 @@ import static org.junit.Assert.*;
 
 public class OrTest {
 
+    private Context context = new Context(new ArrayList<>());
+
     class TrueRule implements Rule {
         @Override
-        public boolean evaluate(String context) {
+        public boolean evaluate(Context context) {
             return true;
         }
     }
 
     class FalseRule implements Rule {
         @Override
-        public boolean evaluate(String context) {
+        public boolean evaluate(Context context) {
             return false;
         }
     }
@@ -32,7 +35,7 @@ public class OrTest {
         trueRules.add(new TrueRule());
 
         assertEquals(2, trueRules.size());
-        assertTrue(new Or(trueRules).evaluate("context"));
+        assertTrue(new Or(trueRules).evaluate(context));
     }
 
 
@@ -43,7 +46,7 @@ public class OrTest {
         falseRules.add(new FalseRule());
 
         assertEquals(2, falseRules.size());
-        assertFalse(new Or(falseRules).evaluate("context"));
+        assertFalse(new Or(falseRules).evaluate(context));
     }
 
     @Test
@@ -53,7 +56,7 @@ public class OrTest {
         mixedRules.add(new TrueRule());
 
         assertEquals(2, mixedRules.size());
-        assertTrue(new Or(mixedRules).evaluate("context"));
+        assertTrue(new Or(mixedRules).evaluate(context));
     }
 
 }
