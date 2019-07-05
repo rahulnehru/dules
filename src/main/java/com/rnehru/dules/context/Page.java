@@ -21,4 +21,12 @@ public class Page {
         return questionsAndAnswers;
     }
 
+    public boolean isComplete() {
+        if(null != questionsAndAnswers) {
+            return !this.getQuestionsAndAnswers().containsValue(null);
+        } else {
+            return false;
+        }
+    }
+
 }
