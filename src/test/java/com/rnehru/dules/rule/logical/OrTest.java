@@ -1,7 +1,7 @@
-package com.rnehru.dules.model.logical;
+package com.rnehru.dules.rule.logical;
 
 import com.rnehru.dules.context.Context;
-import com.rnehru.dules.model.Rule;
+import com.rnehru.dules.rule.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class AndTest {
+public class OrTest {
 
     private Context context = new Context(new ArrayList<>());
 
@@ -35,7 +35,7 @@ public class AndTest {
         trueRules.add(new TrueRule());
 
         assertEquals(2, trueRules.size());
-        assertTrue(new And(trueRules).evaluate(context));
+        assertTrue(new Or(trueRules).evaluate(context));
     }
 
 
@@ -46,17 +46,17 @@ public class AndTest {
         falseRules.add(new FalseRule());
 
         assertEquals(2, falseRules.size());
-        assertFalse(new And(falseRules).evaluate(context));
+        assertFalse(new Or(falseRules).evaluate(context));
     }
 
     @Test
-    public void evaluate_returnsFalse_whenSomeRulesEvaluateToFalse() {
+    public void evaluate_returnsTrue_whenSomeRulesEvaluateToTrue() {
         List<Rule> mixedRules = new ArrayList<>();
         mixedRules.add(new FalseRule());
         mixedRules.add(new TrueRule());
 
         assertEquals(2, mixedRules.size());
-        assertFalse(new And(mixedRules).evaluate(context));
+        assertTrue(new Or(mixedRules).evaluate(context));
     }
 
 }

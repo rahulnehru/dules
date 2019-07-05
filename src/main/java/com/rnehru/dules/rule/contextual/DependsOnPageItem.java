@@ -1,6 +1,6 @@
-package com.rnehru.dules.model.contextual;
+package com.rnehru.dules.rule.contextual;
 
-import com.rnehru.dules.model.Rule;
+import com.rnehru.dules.rule.Rule;
 
 abstract class DependsOnPageItem implements Rule {
 

@@ -1,7 +1,7 @@
-package com.rnehru.dules.model.logical;
+package com.rnehru.dules.rule.logical;
 
 import com.rnehru.dules.context.Context;
-import com.rnehru.dules.model.Rule;
+import com.rnehru.dules.rule.Rule;
 
 import java.util.ArrayList;
 import java.util.List;

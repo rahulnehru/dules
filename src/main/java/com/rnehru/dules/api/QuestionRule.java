@@ -1,7 +1,7 @@
 package com.rnehru.dules.api;
 
 import com.rnehru.dules.context.Context;
-import com.rnehru.dules.model.Rule;
+import com.rnehru.dules.rule.Rule;
 
 /**
  * QuestionRule is a container for the rules associated to make a question appear.
