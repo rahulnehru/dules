@@ -19,9 +19,8 @@ public class AnswerMatches extends PageRule {
 
     @Override
     public boolean evaluate(Context context) {
-        List<Page> pages = context.getPages();
         boolean isTrue = false;
-        for (Page page : pages) {
+        for (Page page : context.getPages()) {
             if(null != page.getQuestionsAndAnswers() &&
                     Objects.equals(page.getName(), parentPage) &&
                     Objects.equals(page.getQuestionsAndAnswers().get(question), answer)){
