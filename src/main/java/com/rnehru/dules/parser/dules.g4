@@ -9,15 +9,19 @@ rule: triggers | rule AND rule | rule OR rule | NOT rule;
 
 triggers: statedriven | contextdriven;
 
-statedriven: allPagesComplete;
-contextdriven : answerExists | answerMatches | answerIn | answerDateBefore | answerDateAfter;
+statedriven: allPagesComplete | pageComplete;
+contextdriven: answerExists | answerMatches | answerIn | answerDateBefore | answerDateAfter | answerLessThan | answerMoreThan | pageExists;
 
-answerMatches:  String  Und  String  Und  String;
+allPagesComplete: Complete;
+answerDateAfter: String Und String Und GreaterThan Date;
+answerDateBefore: String Und String Und LessThan Date;
 answerExists:  String  Und  String;
 answerIn: String  Und  String  Und Ref;
-answerDateBefore: String Und String Und LessThan Date;
-answerDateAfter: String Und String Und GreaterThan Date;
-allPagesComplete: Complete;
+answerLessThan: String Und String Und LessThan Number;
+answerMatches:  String  Und  String  Und  String;
+answerMoreThan: String Und String Und GreaterThan Number;
+pageComplete: Complete Und String;
+pageExists: String;
 
 Complete: 'complete';
 AND: ' & ';
