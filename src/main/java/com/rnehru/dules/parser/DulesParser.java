@@ -1,4 +1,3 @@
-// Generated from Dules.g4 by ANTLR 4.7.2
 package com.rnehru.dules.parser;
 
 import org.antlr.v4.runtime.*;
@@ -13,6 +12,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.List;
 
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class DulesParser extends org.antlr.v4.runtime.Parser {
 	static { RuntimeMetaData.checkVersion("4.7.2", RuntimeMetaData.VERSION); }
 
