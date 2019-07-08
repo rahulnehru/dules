@@ -1,4 +1,4 @@
-grammar dules;
+grammar Dules;
 
 higher: pageShowRule | questionShowRule;
 

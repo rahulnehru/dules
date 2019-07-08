@@ -13,7 +13,8 @@ public class DuleEvaluator {
     }
 
     public boolean evaluate(@NotNull Context context, @NotNull String ruleRep){
-        return parser.parse(ruleRep).evaluate(context);
+        return false;
+//        return parser.parse(ruleRep).evaluate(context);
     }
 
 }
