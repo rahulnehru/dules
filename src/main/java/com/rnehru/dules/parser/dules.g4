@@ -29,4 +29,4 @@ Ref: '$'['a-zA-Z']+;
 Date: Number'-'Number'-'Number;
 Und: '__';
 LessThan: '<';
-GreaterThan: '<';
+GreaterThan: '>';
