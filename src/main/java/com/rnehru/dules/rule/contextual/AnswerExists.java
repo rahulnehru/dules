@@ -2,8 +2,11 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.rule.Rule;
 
 import java.util.Objects;
+
+import static com.rnehru.dules.rule.Rule.*;
 
 public class AnswerExists extends DependsOnPageItem {
 
@@ -17,7 +20,7 @@ public class AnswerExists extends DependsOnPageItem {
     @Override
     public boolean evaluate(Context context) {
         boolean isTrue = false;
-        if (null != context.getPages() && null != context.getPages() && !context.getPages().isEmpty()) {
+        if (!contextInvalid(context)) {
             for (Page page : context.getPages()) {
                 if (null != page.getQuestionsAndAnswers() &&
                         Objects.equals(page.getName(), parentPage) &&
