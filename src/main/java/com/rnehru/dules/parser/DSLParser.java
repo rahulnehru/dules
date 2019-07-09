@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class DSLParser {
 
     public static void main(String[] args) {
-        String s = ".page(p__q__>1 & p)";
+        String s = ".page(p__q__>1 & p || p__q__r)";
 
         DulesLexer dl = new DulesLexer(CharStreams.fromString(s));
 

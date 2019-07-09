@@ -1,20 +1,56 @@
 package com.rnehru.dules.parser;
 
+import com.rnehru.dules.higher.PageRule;
+import com.rnehru.dules.higher.QuestionRule;
 import com.rnehru.dules.rule.Rule;
 import com.rnehru.dules.rule.contextual.*;
+import com.rnehru.dules.rule.logical.And;
+import com.rnehru.dules.rule.logical.Not;
+import com.rnehru.dules.rule.logical.Or;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
+
     @Override
     public Rule visitHigher(DulesParser.HigherContext ctx) {
-        return super.visitHigher(ctx);
+        if(null != ctx.pageShowRule()) {
+            return ctx.pageShowRule().accept(this);
+        } else if(null != ctx.questionShowRule()) {
+            return ctx.questionShowRule().accept(this);
+        } else {
+            return super.visitHigher(ctx);
+        }
     }
 
     @Override
     public Rule visitPageShowRule(DulesParser.PageShowRuleContext ctx) {
-        return super.visitPageShowRule(ctx);
+        return new PageRule("childPage", ctx.rule().accept(this));
+    }
+
+    @Override
+    public Rule visitQuestionShowRule(DulesParser.QuestionShowRuleContext ctx) {
+        return new QuestionRule("childPage", ctx.rule().accept(this));
+    }
+
+    @Override
+    public Rule visitRule(DulesParser.RuleContext ctx) {
+        if(null != ctx.AND()) {
+            return new And(ctx.rule().stream().map(ruleContext -> ruleContext.accept(this)).collect(toList()));
+        } else if (null != ctx.OR()) {
+            return new Or(ctx.rule().stream().map(ruleContext -> ruleContext.accept(this)).collect(toList()));
+        } else if (null != ctx.NOT()) {
+            return new Not(ctx.rule(0).accept(this));
+        } else if (null != ctx.rule(0)) {
+            return ctx.rule(0).accept(this);
+        } else {
+            return super.visitRule(ctx);
+        }
     }
 
     @Override
