@@ -1,5 +1,6 @@
 package com.rnehru.dules.parser;
 
+import com.rnehru.dules.error.UnrecognisedRuleTypeException;
 import com.rnehru.dules.higher.PageRule;
 import com.rnehru.dules.higher.QuestionRule;
 import com.rnehru.dules.rule.Rule;
@@ -14,17 +15,17 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-public class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
+class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
 
     @Override
-    public Rule visitHigher(DulesParser.HigherContext ctx) {
+    public Rule visitHigher(DulesParser.HigherContext ctx) throws UnrecognisedRuleTypeException {
         if(null != ctx.pageShowRule()) {
             return ctx.pageShowRule().accept(this);
         } else if(null != ctx.questionShowRule()) {
             return ctx.questionShowRule().accept(this);
         } else {
-            return super.visitHigher(ctx);
+            throw new UnrecognisedRuleTypeException();
         }
     }
 

@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * This interface defines a complete listener for a parse tree produced by
  * {@link DulesParser}.
  */
-public interface DulesListener extends ParseTreeListener {
+interface DulesListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by {@link DulesParser#higher}.
 	 * @param ctx the parse tree
