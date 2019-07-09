@@ -10,8 +10,6 @@ import com.rnehru.dules.rule.logical.Not;
 import com.rnehru.dules.rule.logical.Or;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
