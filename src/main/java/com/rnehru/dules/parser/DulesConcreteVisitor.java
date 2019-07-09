@@ -73,7 +73,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
         return new AnswerDateAfter(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
-                ctx.String(2).getText()
+                ctx.Date().getText()
         );
     }
 
@@ -82,7 +82,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
         return new AnswerDateBefore(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
-                ctx.String(2).getText()
+                ctx.Date().getText()
         );
     }
 
