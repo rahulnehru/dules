@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class NotTest {
 
-    private Context context = new Context(new ArrayList<>());
+    private final Context context = new Context(new ArrayList<>());
 
     class TrueRule implements Rule {
         @Override

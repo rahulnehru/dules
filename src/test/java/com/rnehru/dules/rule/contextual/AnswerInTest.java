@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AnswerInTest {
 
-    String options = "$REF";
+    private final String options = "$REF";
 
   @Test
   public void evaluate_returnsFalse_whenContextNull() {

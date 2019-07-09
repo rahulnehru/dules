@@ -2,7 +2,6 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
-import com.rnehru.dules.rule.Rule;
 
 import java.time.LocalDate;
 
@@ -10,8 +9,8 @@ import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 public class AnswerDateAfter extends DependsOnPageItem {
 
-    private LocalDate comparisonDate;
-    private String question;
+    private final LocalDate comparisonDate;
+    private final String question;
 
     public AnswerDateAfter(String parentPage, String question, String comparisonDate) {
         this.parentPage = parentPage;

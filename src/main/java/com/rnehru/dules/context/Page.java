@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class Page {
 
-    private String name;
+    private final String name;
 
-    private Map<String, String> questionsAndAnswers;
+    private final Map<String, String> questionsAndAnswers;
 
     public Page(String name, Map<String, String> questionsAndAnswers) {
         this.name = name;

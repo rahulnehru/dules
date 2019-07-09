@@ -3,6 +3,7 @@ package com.rnehru.dules.parser;
 import com.rnehru.dules.error.UnrecognisedRuleTypeException;
 import com.rnehru.dules.higher.PageRule;
 import com.rnehru.dules.higher.QuestionRule;
+import com.rnehru.dules.parser.DulesParser.*;
 import com.rnehru.dules.rule.Rule;
 import com.rnehru.dules.rule.contextual.*;
 import com.rnehru.dules.rule.logical.And;
@@ -14,7 +15,7 @@ import static java.util.stream.Collectors.toList;
 class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
     @Override
-    public Rule visitHigher(DulesParser.HigherContext ctx) throws UnrecognisedRuleTypeException {
+    public Rule visitHigher(HigherContext ctx) throws UnrecognisedRuleTypeException {
         if (null != ctx.pageShowRule()) {
             return ctx.pageShowRule().accept(this);
         } else if (null != ctx.questionShowRule()) {
@@ -25,17 +26,17 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitPageShowRule(DulesParser.PageShowRuleContext ctx) {
-        return new PageRule("childPage", ctx.rule().accept(this));
+    public Rule visitPageShowRule(PageShowRuleContext ctx) {
+        return new PageRule(ctx.rule().accept(this));
     }
 
     @Override
-    public Rule visitQuestionShowRule(DulesParser.QuestionShowRuleContext ctx) {
-        return new QuestionRule("childQuestion", ctx.rule().accept(this));
+    public Rule visitQuestionShowRule(QuestionShowRuleContext ctx) {
+        return new QuestionRule(ctx.rule().accept(this));
     }
 
     @Override
-    public Rule visitRule(DulesParser.RuleContext ctx) {
+    public Rule visitRule(RuleContext ctx) {
         if (null != ctx.AND()) {
             return new And(ctx.rule().stream().map(ruleContext -> ruleContext.accept(this)).collect(toList()));
         } else if (null != ctx.OR()) {
@@ -50,12 +51,12 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitPageExists(DulesParser.PageExistsContext ctx) {
+    public Rule visitPageExists(PageExistsContext ctx) {
         return new PageExists(ctx.String().getText());
     }
 
     @Override
-    public Rule visitAnswerExists(DulesParser.AnswerExistsContext ctx) {
+    public Rule visitAnswerExists(AnswerExistsContext ctx) {
         return new AnswerExists(
                 ctx.String(0).getText(),
                 ctx.String(1).getText()
@@ -63,12 +64,12 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitAllPagesComplete(DulesParser.AllPagesCompleteContext ctx) {
+    public Rule visitAllPagesComplete(AllPagesCompleteContext ctx) {
         return new AllPagesComplete();
     }
 
     @Override
-    public Rule visitAnswerDateAfter(DulesParser.AnswerDateAfterContext ctx) {
+    public Rule visitAnswerDateAfter(AnswerDateAfterContext ctx) {
         return new AnswerDateAfter(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
@@ -77,7 +78,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitAnswerDateBefore(DulesParser.AnswerDateBeforeContext ctx) {
+    public Rule visitAnswerDateBefore(AnswerDateBeforeContext ctx) {
         return new AnswerDateBefore(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
@@ -86,7 +87,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitAnswerLessThan(DulesParser.AnswerLessThanContext ctx) {
+    public Rule visitAnswerLessThan(AnswerLessThanContext ctx) {
         return new AnswerLessThan(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
@@ -95,7 +96,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitAnswerMoreThan(DulesParser.AnswerMoreThanContext ctx) {
+    public Rule visitAnswerMoreThan(AnswerMoreThanContext ctx) {
         return new AnswerMoreThan(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
@@ -104,7 +105,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitAnswerIn(DulesParser.AnswerInContext ctx) {
+    public Rule visitAnswerIn(AnswerInContext ctx) {
         return new AnswerIn(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
@@ -113,7 +114,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitAnswerMatches(DulesParser.AnswerMatchesContext ctx) {
+    public Rule visitAnswerMatches(AnswerMatchesContext ctx) {
         return new AnswerMatches(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
@@ -122,7 +123,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
     }
 
     @Override
-    public Rule visitPageComplete(DulesParser.PageCompleteContext ctx) {
+    public Rule visitPageComplete(PageCompleteContext ctx) {
         return new PageComplete(ctx.String().getText());
     }
 

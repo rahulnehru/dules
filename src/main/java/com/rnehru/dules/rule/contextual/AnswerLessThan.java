@@ -3,14 +3,12 @@ package com.rnehru.dules.rule.contextual;
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
 
-import java.time.LocalDate;
-
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 public class AnswerLessThan extends DependsOnPageItem {
 
-    private int comparisonValue;
-    private String question;
+    private final int comparisonValue;
+    private final String question;
 
     public AnswerLessThan(String parentPage, String question, int comparisonValue) {
         this.parentPage = parentPage;

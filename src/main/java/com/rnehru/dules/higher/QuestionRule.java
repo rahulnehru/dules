@@ -9,11 +9,9 @@ import com.rnehru.dules.rule.Rule;
 
 public class QuestionRule implements Rule {
 
-    private String childQuestion;
-    private Rule rule;
+    private final Rule rule;
 
-    public QuestionRule(String childQuestion, Rule rule) {
-        this.childQuestion = childQuestion;
+    public QuestionRule(Rule rule) {
         this.rule = rule;
     }
 

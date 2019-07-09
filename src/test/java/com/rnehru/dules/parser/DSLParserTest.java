@@ -4,11 +4,9 @@ import com.rnehru.dules.error.UnrecognisedRuleTypeException;
 import com.rnehru.dules.higher.PageRule;
 import com.rnehru.dules.rule.Rule;
 import com.rnehru.dules.rule.contextual.AllPagesComplete;
-import com.rnehru.dules.rule.contextual.PageComplete;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 public class DSLParserTest {
 
@@ -22,7 +20,7 @@ public class DSLParserTest {
     @Test
     public void parse_returnsRuleWhen_ruleIsParseable() {
         Rule allPagesComplete = new AllPagesComplete();
-        Rule pageRule = new PageRule(null, allPagesComplete);
+        Rule pageRule = new PageRule(allPagesComplete);
         String goodRule = ".page(complete)";
         DSLParser parser = new DSLParser();
 

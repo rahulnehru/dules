@@ -7,8 +7,8 @@ import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 public class AnswerMoreThan extends DependsOnPageItem {
 
-    private int comparisonValue;
-    private String question;
+    private final int comparisonValue;
+    private final String question;
 
     public AnswerMoreThan(String parentPage, String question, int comparisonValue) {
         this.parentPage = parentPage;

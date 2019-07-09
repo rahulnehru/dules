@@ -7,8 +7,8 @@ import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 public class AnswerIn extends DependsOnPageItem {
 
-    private String question;
-    private String options;
+    private final String question;
+    private final String options;
 
     public AnswerIn(String parentPage, String question, String options) {
         this.parentPage = parentPage;

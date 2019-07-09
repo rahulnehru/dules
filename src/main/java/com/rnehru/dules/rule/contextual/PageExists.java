@@ -2,7 +2,6 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
-import com.rnehru.dules.rule.Rule;
 
 import java.util.Objects;
 

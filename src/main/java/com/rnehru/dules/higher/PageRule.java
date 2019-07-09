@@ -9,11 +9,9 @@ import com.rnehru.dules.rule.Rule;
 
 public class PageRule implements Rule {
 
-    private String childPage;
-    private Rule rule;
+    private final Rule rule;
 
-    public PageRule(String childPage, Rule rule) {
-        this.childPage = childPage;
+    public PageRule(Rule rule) {
         this.rule = rule;
     }
 

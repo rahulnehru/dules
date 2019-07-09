@@ -2,16 +2,15 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
-import com.rnehru.dules.rule.Rule;
 
 import java.util.Objects;
 
-import static com.rnehru.dules.rule.Rule.*;
+import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 public class AnswerMatches extends DependsOnPageItem {
 
-    private String answer;
-    private String question;
+    private final String answer;
+    private final String question;
 
     public AnswerMatches(String parentPage, String answer, String question) {
         this.parentPage = parentPage;

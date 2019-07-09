@@ -2,15 +2,14 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
-import com.rnehru.dules.rule.Rule;
 
 import java.util.Objects;
 
-import static com.rnehru.dules.rule.Rule.*;
+import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 public class AnswerExists extends DependsOnPageItem {
 
-    private String question;
+    private final String question;
 
     public AnswerExists(String parentPage, String question) {
         this.parentPage = parentPage;
