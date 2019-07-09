@@ -2,7 +2,6 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
-import com.rnehru.dules.rule.Rule;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
@@ -11,17 +10,7 @@ public final class AllPagesComplete extends StateDrivenRule {
 
     @Override
     public final boolean evaluate(Context context) {
-        boolean isTrue = true;
-        if(!contextInvalid(context)) {
-            for (Page p : context.getPages()) {
-                if(!p.isComplete()) {
-                    isTrue = false;
-                }
-            }
-        } else {
-            isTrue = false;
-        }
-        return isTrue;
+        return !contextInvalid(context) && context.getPages().stream().allMatch(Page::isComplete);
     }
 
     @Override

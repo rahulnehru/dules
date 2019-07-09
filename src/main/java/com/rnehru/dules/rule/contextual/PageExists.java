@@ -1,9 +1,6 @@
 package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
-import com.rnehru.dules.context.Page;
-
-import java.util.Objects;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
@@ -15,16 +12,10 @@ public final class PageExists extends ContextDrivenRule {
 
     @Override
     public final boolean evaluate(Context context) {
-        boolean isTrue = false;
-        if(!contextInvalid(context)){
-            for (Page page : context.getPages()) {
-                if(Objects.equals(parentPage, page.getName()) &&
+        return !contextInvalid(context) && context.getPages().stream().anyMatch(page ->
+                page.getName().equals(parentPage) &&
                         null != page.getQuestionsAndAnswers() &&
-                        !page.getQuestionsAndAnswers().isEmpty()){
-                    isTrue = true;
-                }
-            }
-        }
-        return isTrue;
+                        !page.getQuestionsAndAnswers().isEmpty()
+        );
     }
 }
