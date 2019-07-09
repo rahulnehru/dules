@@ -9,6 +9,5 @@ public interface Parser {
 
     public Rule parseRule(String dslRule);
     public List<Rule> parseRules(List<String> dslRule);
-    public List<Rule> parseRules(File file);
 
 }

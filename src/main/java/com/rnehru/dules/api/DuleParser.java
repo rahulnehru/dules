@@ -3,7 +3,6 @@ package com.rnehru.dules.api;
 import com.rnehru.dules.parser.DSLParser;
 import com.rnehru.dules.rule.Rule;
 
-import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +21,6 @@ public class DuleParser implements Parser {
                 .stream()
                 .map(dslRule -> parser.parse(dslRule))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Rule> parseRules(File file) {
-        return null;
     }
 
 
