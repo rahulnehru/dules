@@ -14,13 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 public class AnswerInTest {
 
-    List<String> options = new ArrayList<>();
-    {
-        options.add("opt1");
-        options.add("opt2");
-        options.add("opt3");
-    }
-
+    String options = "$REF";
 
   @Test
   public void evaluate_returnsFalse_whenContextNull() {
@@ -87,7 +81,7 @@ public class AnswerInTest {
     @Test
     public void evaluate_returnsTrue_whenContextHasPageListWithPagesWithQuestionButAnswerInOptions() {
         Map<String, String> qa = new HashMap<>();
-        qa.put("question", "opt1");
+        qa.put("question", "REF");
         List<Page> pages = new ArrayList<>();
         pages.add(new Page("page", qa));
         Context ctx = new Context(pages);

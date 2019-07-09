@@ -15,7 +15,6 @@ import static java.util.stream.Collectors.toList;
 
 class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
-
     @Override
     public Rule visitHigher(DulesParser.HigherContext ctx) throws UnrecognisedRuleTypeException {
         if(null != ctx.pageShowRule()) {
@@ -34,7 +33,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
     @Override
     public Rule visitQuestionShowRule(DulesParser.QuestionShowRuleContext ctx) {
-        return new QuestionRule("childPage", ctx.rule().accept(this));
+        return new QuestionRule("childQuestion", ctx.rule().accept(this));
     }
 
     @Override
@@ -111,7 +110,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
         return new AnswerIn(
                 ctx.String(0).getText(),
                 ctx.String(1).getText(),
-                new ArrayList<>()
+                ctx.Ref().getText()
         );
     }
 
