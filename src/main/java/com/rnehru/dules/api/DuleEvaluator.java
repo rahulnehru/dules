@@ -12,9 +12,8 @@ public class DuleEvaluator {
         return rule.evaluate(context);
     }
 
-    public boolean evaluate(@NotNull Context context, @NotNull String ruleRep){
-        return false;
-//        return parser.parse(ruleRep).evaluate(context);
+    public boolean evaluate(@NotNull Context context, @NotNull String dslRule){
+        return parser.parseRule(dslRule).evaluate(context);
     }
 
 }

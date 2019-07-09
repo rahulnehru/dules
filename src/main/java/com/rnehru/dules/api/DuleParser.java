@@ -6,7 +6,7 @@ import com.rnehru.dules.rule.Rule;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class DuleParser {
+public class DuleParser {
 
     DSLParser parser = new DSLParser();
 
