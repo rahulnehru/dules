@@ -22,11 +22,9 @@ public class Page {
     }
 
     public boolean isComplete() {
-        if(null != questionsAndAnswers && !questionsAndAnswers.isEmpty()) {
-            return !this.getQuestionsAndAnswers().containsValue(null);
-        } else {
-            return false;
-        }
+        return null != questionsAndAnswers &&
+                !questionsAndAnswers.isEmpty() &&
+                !this.getQuestionsAndAnswers().containsValue(null);
     }
 
 }
