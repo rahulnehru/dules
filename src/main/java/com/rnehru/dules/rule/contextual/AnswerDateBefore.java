@@ -33,4 +33,13 @@ public final class AnswerDateBefore extends ContextDrivenRule {
         }
         return isTrue;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null!=obj &&
+                obj.getClass().equals(AnswerDateBefore.class) &&
+                ((AnswerDateBefore) obj).parentPage.equals(this.parentPage) &&
+                ((AnswerDateBefore) obj).comparisonDate.equals(this.comparisonDate) &&
+                ((AnswerDateBefore) obj).question.equals(this.question);
+    }
 }

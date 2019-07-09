@@ -23,4 +23,9 @@ public final class AllPagesComplete extends StateDrivenRule {
         }
         return isTrue;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null!=obj && obj.getClass().equals(AllPagesComplete.class);
+    }
 }

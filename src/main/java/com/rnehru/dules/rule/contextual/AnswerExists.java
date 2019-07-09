@@ -33,4 +33,12 @@ public final class AnswerExists extends ContextDrivenRule {
         }
         return isTrue;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null != obj &&
+                obj.getClass().equals(AnswerExists.class) &&
+                ((AnswerExists) obj).parentPage.equals(this.parentPage) &&
+                ((AnswerExists) obj).question.equals(this.question);
+    }
 }

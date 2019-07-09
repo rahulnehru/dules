@@ -32,4 +32,13 @@ public final class AnswerIn extends ContextDrivenRule {
         }
         return isTrue;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null != obj &&
+                obj.getClass().equals(AnswerIn.class) &&
+                ((AnswerIn) obj).parentPage.equals(parentPage) &&
+                ((AnswerIn) obj).question.equals(question) &&
+                ((AnswerIn) obj).options.equals(options);
+    }
 }
