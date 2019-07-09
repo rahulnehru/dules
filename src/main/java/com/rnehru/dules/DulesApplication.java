@@ -28,7 +28,7 @@ public class DulesApplication {
         print(".page(p__q__a & complete__p || z__d__>3)");
         print(".page(p__q__a & complete__p || z__d__>3)");
         print(".page(!p__q__d)");
-        print(".question(p__q__t)");
+        print(".question(p__q__$abc)");
         print(".question(x__g__<2010-01-01)");
 
     }
