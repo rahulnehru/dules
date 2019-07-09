@@ -4,7 +4,7 @@ import com.rnehru.dules.context.Context;
 import com.rnehru.dules.rule.Rule;
 import org.jetbrains.annotations.NotNull;
 
-public class DuleEvaluator {
+public class DuleEvaluator implements Evaluator {
 
     private DuleParser parser = new DuleParser();
 

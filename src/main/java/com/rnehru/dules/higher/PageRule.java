@@ -7,7 +7,7 @@ import com.rnehru.dules.rule.Rule;
  * PageRule is a container for the rules associated to make a page appear.
  */
 
-public class PageRule implements Rule {
+public final class PageRule implements Rule {
 
     private final Rule rule;
 
@@ -16,7 +16,7 @@ public class PageRule implements Rule {
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         return rule.evaluate(context);
     }
 }

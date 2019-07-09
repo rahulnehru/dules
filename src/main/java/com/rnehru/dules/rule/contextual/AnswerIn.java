@@ -5,7 +5,7 @@ import com.rnehru.dules.context.Page;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
-public class AnswerIn extends DependsOnPageItem {
+public final class AnswerIn extends ContextDrivenRule {
 
     private final String question;
     private final String options;
@@ -17,7 +17,7 @@ public class AnswerIn extends DependsOnPageItem {
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         boolean isTrue = false;
         if (!contextInvalid(context)) {
             for (Page page : context.getPages()) {

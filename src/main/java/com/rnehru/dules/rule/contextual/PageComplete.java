@@ -5,14 +5,14 @@ import com.rnehru.dules.context.Page;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
-public class PageComplete extends DependsOnPageItem {
+public final class PageComplete extends ContextDrivenRule {
 
     public PageComplete(String parentPage) {
         this.parentPage = parentPage;
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         boolean isTrue = false;
         if(!contextInvalid(context)) {
             for(Page p: context.getPages()) {

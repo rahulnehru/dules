@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
-public class AnswerExists extends DependsOnPageItem {
+public final class AnswerExists extends ContextDrivenRule {
 
     private final String question;
 
@@ -17,7 +17,7 @@ public class AnswerExists extends DependsOnPageItem {
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         boolean isTrue = false;
         if (!contextInvalid(context)) {
             for (Page page : context.getPages()) {

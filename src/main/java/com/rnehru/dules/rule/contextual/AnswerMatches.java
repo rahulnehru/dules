@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
-public class AnswerMatches extends DependsOnPageItem {
+public final class AnswerMatches extends ContextDrivenRule {
 
     private final String answer;
     private final String question;
@@ -19,7 +19,7 @@ public class AnswerMatches extends DependsOnPageItem {
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         boolean isTrue = false;
         if(!contextInvalid(context)) {
             for (Page page : context.getPages()) {

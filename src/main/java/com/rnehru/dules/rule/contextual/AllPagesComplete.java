@@ -7,10 +7,10 @@ import com.rnehru.dules.rule.Rule;
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 
-public class AllPagesComplete implements Rule {
+public final class AllPagesComplete extends StateDrivenRule {
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         boolean isTrue = true;
         if(!contextInvalid(context)) {
             for (Page p : context.getPages()) {

@@ -7,15 +7,14 @@ import java.util.Objects;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
-public class PageExists extends DependsOnPageItem {
-
+public final class PageExists extends ContextDrivenRule {
 
     public PageExists(String parentPage) {
         this.parentPage = parentPage;
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         boolean isTrue = false;
         if(!contextInvalid(context)){
             for (Page page : context.getPages()) {

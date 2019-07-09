@@ -7,7 +7,7 @@ import com.rnehru.dules.rule.Rule;
  * QuestionRule is a container for the rules associated to make a question appear.
  */
 
-public class QuestionRule implements Rule {
+public final class QuestionRule implements Rule {
 
     private final Rule rule;
 
@@ -16,7 +16,7 @@ public class QuestionRule implements Rule {
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         return rule.evaluate(context);
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
-public class AnswerDateBefore extends DependsOnPageItem {
+public final class AnswerDateBefore extends ContextDrivenRule {
 
     private final LocalDate comparisonDate;
     private final String question;
@@ -19,7 +19,7 @@ public class AnswerDateBefore extends DependsOnPageItem {
     }
 
     @Override
-    public boolean evaluate(Context context) {
+    public final boolean evaluate(Context context) {
         boolean isTrue = false;
         if(!contextInvalid(context)){
             for(Page page: context.getPages()) {
