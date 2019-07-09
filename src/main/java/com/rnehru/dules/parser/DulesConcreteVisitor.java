@@ -9,17 +9,15 @@ import com.rnehru.dules.rule.logical.And;
 import com.rnehru.dules.rule.logical.Not;
 import com.rnehru.dules.rule.logical.Or;
 
-import java.util.ArrayList;
-
 import static java.util.stream.Collectors.toList;
 
 class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
     @Override
     public Rule visitHigher(DulesParser.HigherContext ctx) throws UnrecognisedRuleTypeException {
-        if(null != ctx.pageShowRule()) {
+        if (null != ctx.pageShowRule()) {
             return ctx.pageShowRule().accept(this);
-        } else if(null != ctx.questionShowRule()) {
+        } else if (null != ctx.questionShowRule()) {
             return ctx.questionShowRule().accept(this);
         } else {
             throw new UnrecognisedRuleTypeException();
@@ -38,7 +36,7 @@ class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
     @Override
     public Rule visitRule(DulesParser.RuleContext ctx) {
-        if(null != ctx.AND()) {
+        if (null != ctx.AND()) {
             return new And(ctx.rule().stream().map(ruleContext -> ruleContext.accept(this)).collect(toList()));
         } else if (null != ctx.OR()) {
             return new Or(ctx.rule().stream().map(ruleContext -> ruleContext.accept(this)).collect(toList()));
