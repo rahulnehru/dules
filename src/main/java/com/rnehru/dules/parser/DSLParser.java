@@ -1,5 +1,6 @@
 package com.rnehru.dules.parser;
 
+import com.rnehru.dules.rule.Rule;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -16,12 +17,14 @@ public class DSLParser {
         CommonTokenStream tokens = new CommonTokenStream(dl);
 
         DulesParser parser = new DulesParser(tokens);
-        ParseTree tree = parser.higher();
-        DulesListener listener = new DulesBaseListener();
 
-        ParseTreeWalker walker = new ParseTreeWalker();
 
-        walker.walk(listener, tree);
+        DulesConcreteVisitor visitor = new DulesConcreteVisitor();
+
+        Rule r = visitor.visitHigher(parser.higher());
+
+        System.out.println(r);
+
 
     }
 }
