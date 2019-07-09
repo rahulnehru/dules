@@ -3,7 +3,7 @@
 
 ## Overview
 
-Dules a rule evaluation framework used to drive logic on form rendering engines.
+Dules a rule evaluation framework used to drive logic on form rendering engines based on a lightweight DSL built on top of Antlr 4.
 
 It is possible to use the library to add rules for pages and questions.
 
