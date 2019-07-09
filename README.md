@@ -91,7 +91,7 @@ Logical rules are thought of as combinators for rules.
 
 `.page(<rule> || <rule> & <rule>)`
 
-###Examples - Contextual rules
+### Examples - Contextual rules
 Contextual rules are thought of as rules which are dependent on the answers already provided by a user.
 
 
