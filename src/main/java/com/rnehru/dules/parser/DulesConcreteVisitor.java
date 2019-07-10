@@ -14,6 +14,8 @@ import static java.util.stream.Collectors.toList;
 
 class DulesConcreteVisitor extends DulesBaseVisitor<Rule> {
 
+    protected DulesConcreteVisitor() {}
+
     @Override
     public Rule visitHigher(HigherContext ctx) {
         if (null != ctx.pageShowRule()) {
