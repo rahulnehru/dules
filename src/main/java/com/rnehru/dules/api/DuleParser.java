@@ -1,5 +1,6 @@
 package com.rnehru.dules.api;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.rnehru.dules.parser.DSLParser;
 import com.rnehru.dules.rule.Rule;
 
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class DuleParser implements Parser {
 
+    @VisibleForTesting
     DSLParser parser = new DSLParser();
 
     public DuleParser() {}

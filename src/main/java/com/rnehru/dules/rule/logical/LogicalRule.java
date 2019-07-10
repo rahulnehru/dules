@@ -6,6 +6,6 @@ import java.util.List;
 
 abstract class LogicalRule implements Rule {
 
-    List<Rule> rules;
+    protected List<Rule> rules;
 
 }

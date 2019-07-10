@@ -4,6 +4,6 @@ import com.rnehru.dules.rule.Rule;
 
 abstract class ContextDrivenRule implements Rule {
 
-    String parentPage;
+    protected String parentPage;
 
 }
