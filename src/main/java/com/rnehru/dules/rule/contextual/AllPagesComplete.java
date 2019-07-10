@@ -9,7 +9,7 @@ import static com.rnehru.dules.rule.Rule.contextInvalid;
 public final class AllPagesComplete extends StateDrivenRule {
 
     @Override
-    public final boolean evaluate(Context context) {
+    public boolean evaluate(Context context) {
         return !contextInvalid(context) && context.getPages().stream().allMatch(Page::isComplete);
     }
 

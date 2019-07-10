@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class DuleEvaluator implements Evaluator {
 
+    public DuleEvaluator() {}
+
     DuleParser parser = new DuleParser();
 
     @Override

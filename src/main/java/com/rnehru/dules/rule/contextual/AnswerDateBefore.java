@@ -18,7 +18,7 @@ public final class AnswerDateBefore extends ContextDrivenRule {
     }
 
     @Override
-    public final boolean evaluate(Context context) {
+    public boolean evaluate(Context context) {
         return !contextInvalid(context) && context.getPages().stream().anyMatch(page ->
                 null != page.getQuestionsAndAnswers() &&
                         null != page.getQuestionsAndAnswers().get(question) &&

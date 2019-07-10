@@ -80,6 +80,16 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.0</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/DulesLexer.class</exclude>
+                        <exclude>**/DulesBaseVisitor.class</exclude>
+                        <exclude>**/DulesLexer.class</exclude>
+                        <exclude>**/DulesListener.class</exclude>
+                        <exclude>**/DulesParser.class</exclude>
+                        <exclude>**/DulesVisitor.class</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>

@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class DuleParser implements Parser {
 
+    public DuleParser() {}
+
     DSLParser parser = new DSLParser();
 
     @Override

@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface Evaluator {
 
-    public boolean evaluate(@NotNull Context context, @NotNull Rule rule);
-    public boolean evaluate(@NotNull Context context, @NotNull String dslRule);
+    boolean evaluate(@NotNull Context context, @NotNull Rule rule);
+    boolean evaluate(@NotNull Context context, @NotNull String dslRule);
 
 }

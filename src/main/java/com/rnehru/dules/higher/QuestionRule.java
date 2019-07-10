@@ -16,7 +16,7 @@ public final class QuestionRule implements Rule {
     }
 
     @Override
-    public final boolean evaluate(Context context) {
+    public boolean evaluate(Context context) {
         return rule.evaluate(context);
     }
 }

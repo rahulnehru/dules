@@ -15,7 +15,7 @@ public final class Not extends LogicalRule {
     }
 
     @Override
-    public final boolean evaluate(Context context) {
+    public boolean evaluate(Context context) {
         if(null != rules && rules.size()==1 && null != rules.get(0)) {
             return !rules.get(0).evaluate(context);
         }

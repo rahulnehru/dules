@@ -12,7 +12,7 @@ public final class And extends LogicalRule {
     }
 
     @Override
-    public final boolean evaluate(Context context) {
+    public boolean evaluate(Context context) {
         int trueRules = 0;
         for (Rule rule : rules) {
             if(rule.evaluate(context)) {
