@@ -33,4 +33,7 @@ public final class AnswerMatches extends ContextDrivenRule {
                 ((AnswerMatches) obj).question.equals(question) &&
                 ((AnswerMatches) obj).parentPage.equals(parentPage);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

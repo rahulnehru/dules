@@ -17,4 +17,7 @@ public final class AllPagesComplete extends StateDrivenRule {
     public boolean equals(Object obj) {
         return null!=obj && obj.getClass().equals(AllPagesComplete.class);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

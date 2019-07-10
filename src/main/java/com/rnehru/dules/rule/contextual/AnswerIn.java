@@ -33,4 +33,7 @@ public final class AnswerIn extends ContextDrivenRule {
                 ((AnswerIn) obj).question.equals(question) &&
                 ((AnswerIn) obj).options.equals(options);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

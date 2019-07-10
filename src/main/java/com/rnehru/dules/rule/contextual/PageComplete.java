@@ -23,4 +23,7 @@ public final class PageComplete extends ContextDrivenRule {
                 obj.getClass().equals(PageComplete.class) &&
                 ((PageComplete) obj).parentPage.equals(this.parentPage);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

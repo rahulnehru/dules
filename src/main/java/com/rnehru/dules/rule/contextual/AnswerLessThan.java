@@ -33,4 +33,7 @@ public final class AnswerLessThan extends ContextDrivenRule {
                 ((AnswerLessThan) obj).question.equals(question) &&
                 ((AnswerLessThan) obj).comparisonValue == comparisonValue;
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

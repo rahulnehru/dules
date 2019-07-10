@@ -28,4 +28,7 @@ public final class And extends LogicalRule {
                 obj.getClass().equals(And.class) &&
                 ((And) obj).rules.equals(rules);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

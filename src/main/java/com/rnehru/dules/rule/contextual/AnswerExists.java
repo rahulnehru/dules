@@ -30,4 +30,7 @@ public final class AnswerExists extends ContextDrivenRule {
                 ((AnswerExists) obj).parentPage.equals(this.parentPage) &&
                 ((AnswerExists) obj).question.equals(this.question);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

@@ -28,4 +28,7 @@ public final class Not extends LogicalRule {
                 obj.getClass().equals(Not.class) &&
                 ((Not) obj).rules.equals(rules);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

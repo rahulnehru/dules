@@ -25,4 +25,7 @@ public final class PageExists extends ContextDrivenRule {
                 obj.getClass().equals(PageExists.class) &&
                 ((PageExists) obj).parentPage.equals(parentPage);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }

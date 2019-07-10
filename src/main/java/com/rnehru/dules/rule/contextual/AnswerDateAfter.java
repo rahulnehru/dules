@@ -35,4 +35,7 @@ public final class AnswerDateAfter extends ContextDrivenRule {
                 ((AnswerDateAfter) obj).comparisonDate.equals(this.comparisonDate) &&
                 ((AnswerDateAfter) obj).question.equals(this.question);
     }
+
+    @Override
+    public int hashCode() { return super.hashCode(); }
 }
