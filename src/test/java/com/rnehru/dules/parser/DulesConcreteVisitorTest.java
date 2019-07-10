@@ -1,14 +1,24 @@
 package com.rnehru.dules.parser;
 
+import com.rnehru.dules.api.DuleParser;
+import com.rnehru.dules.context.Context;
+import com.rnehru.dules.higher.PageRule;
+import com.rnehru.dules.higher.QuestionRule;
 import com.rnehru.dules.rule.Rule;
 import com.rnehru.dules.rule.contextual.*;
+import com.rnehru.dules.rule.logical.And;
+import com.rnehru.dules.rule.logical.Not;
+import com.rnehru.dules.rule.logical.Or;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 import org.junit.Test;
 
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -16,6 +26,14 @@ import static org.mockito.Mockito.when;
 public class DulesConcreteVisitorTest {
 
     private DulesConcreteVisitor visitor = new DulesConcreteVisitor();
+
+    private class SomeRule implements Rule {
+
+        @Override
+        public boolean evaluate(Context context) {
+            return true;
+        }
+    }
 
     @Test
     public void visitPageComplete_returnsPageCompleteRule_whenContextHasAString() {
@@ -366,5 +384,188 @@ public class DulesConcreteVisitorTest {
         Rule actual = visitor.visitPageExists(ctx);
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void visitRule_returnsAndRule_whenItContainsAndConditionAndRules() {
+        Rule someRule = new SomeRule();
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.AND()).thenReturn(node1);
+        when(ctx.rule()).thenReturn(new ArrayList<DulesParser.RuleContext>(){{add(ctx); add(ctx);}});
+        when(ctx.accept(any())).thenReturn(someRule);
+
+        Rule actual = visitor.visitRule(ctx);
+        Rule expected = new And(new ArrayList<Rule>(){{add(someRule); add(someRule);}});
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void visitRule_returnsAndRule_whenItContainsAndConditionAndNoRules() {
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.AND()).thenReturn(node1);
+        when(ctx.rule()).thenReturn(new ArrayList<>());
+
+        Rule actual = visitor.visitRule(ctx);
+        Rule expected = new And(new ArrayList<>());
+
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void visitRule_throwsException_whenAndNodesAreNull() {
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.AND()).thenReturn(node1);
+        when(ctx.rule()).thenReturn(null);
+
+        visitor.visitRule(ctx);
+    }
+
+    @Test
+    public void visitRule_returnsOrRule_whenItContainsOrConditionAndRules() {
+        Rule someRule = new SomeRule();
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.OR()).thenReturn(node1);
+        when(ctx.rule()).thenReturn(new ArrayList<DulesParser.RuleContext>(){{add(ctx); add(ctx);}});
+        when(ctx.accept(any())).thenReturn(someRule);
+
+        Rule actual = visitor.visitRule(ctx);
+        Rule expected = new Or(new ArrayList<Rule>(){{add(someRule); add(someRule);}});
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void visitRule_returnsOrRule_whenItContainsOrConditionAndNoRules() {
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.OR()).thenReturn(node1);
+        when(ctx.rule()).thenReturn(new ArrayList<>());
+
+        Rule actual = visitor.visitRule(ctx);
+        Rule expected = new Or(new ArrayList<>());
+
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void visitRule_throwsException_whenOrNodesAreNull() {
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.OR()).thenReturn(node1);
+        when(ctx.rule()).thenReturn(null);
+
+        visitor.visitRule(ctx);
+    }
+
+    @Test
+    public void visitRule_returnsNotRule_whenItContainsNotConditionAndRule() {
+        Rule someRule = new SomeRule();
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.NOT()).thenReturn(node1);
+        when(ctx.rule(0)).thenReturn(ctx);
+        when(ctx.accept(any())).thenReturn(someRule);
+
+        Rule actual = visitor.visitRule(ctx);
+        Rule expected = new Not(someRule);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void visitRule_throwsException_whenItContainsNotConditionAndNullRules() {
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        TerminalNode node1 = mock(TerminalNodeImpl.class);
+        when(ctx.NOT()).thenReturn(node1);
+        when(ctx.rule(0)).thenReturn(null);
+
+        visitor.visitRule(ctx);
+    }
+
+    @Test
+    public void visitRule_returnsRule_whenItContainRuleWithNoLogicalCombinators() {
+        Rule someRule = new SomeRule();
+        DulesParser.RuleContext ctx = mock(DulesParser.RuleContext.class);
+        when(ctx.rule(0)).thenReturn(ctx);
+        when(ctx.accept(any())).thenReturn(someRule);
+
+        Rule actual = visitor.visitRule(ctx);
+
+        assertEquals(someRule, actual);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void visitRule_throwsException_whenContextIsNull() {
+        visitor.visitRule(null);
+    }
+
+    @Test
+    public void visitQuestionShowRule_returnsQuestionShowRule_whenContextContainsARule() {
+        Rule someRule = new SomeRule();
+        DulesParser.RuleContext rulectx = mock(DulesParser.RuleContext.class);
+        DulesParser.QuestionShowRuleContext ctx = mock(DulesParser.QuestionShowRuleContext.class);
+        when(ctx.rule()).thenReturn(rulectx);
+        when(rulectx.accept(any())).thenReturn(someRule);
+
+        Rule actual = visitor.visitQuestionShowRule(ctx);
+
+        assertEquals(QuestionRule.class, actual.getClass());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void visitQuestionShowRule_throwsException_whenContextIsNull() {
+        visitor.visitQuestionShowRule(null);
+    }
+
+    @Test
+    public void visitPageShowRule_returnsPageShowRule_whenContextContainsARule() {
+        Rule someRule = new SomeRule();
+        DulesParser.RuleContext rulectx = mock(DulesParser.RuleContext.class);
+        DulesParser.PageShowRuleContext ctx = mock(DulesParser.PageShowRuleContext.class);
+        when(ctx.rule()).thenReturn(rulectx);
+        when(rulectx.accept(any())).thenReturn(someRule);
+
+        Rule actual = visitor.visitPageShowRule(ctx);
+
+        assertEquals(PageRule.class, actual.getClass());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void visitPageShowRule_throwsException_whenContextIsNull() {
+        visitor.visitPageShowRule(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void visitHigher_throwsException_whenContextIsNull() {
+        visitor.visitHigher(null);
+    }
+
+    @Test
+    public void visitHigher_returnsPageRule_whenContainsAPageRule() {
+        Rule somerule = new SomeRule();
+        Rule expected = new PageRule(somerule);
+        DulesParser.HigherContext ctx = mock(DulesParser.HigherContext.class);
+        DulesParser.PageShowRuleContext pagecontext = mock(DulesParser.PageShowRuleContext.class);
+        when(ctx.pageShowRule()).thenReturn(pagecontext);
+        when(pagecontext.accept(visitor)).thenReturn(expected);
+
+        assertEquals(expected.getClass(), visitor.visitHigher(ctx).getClass());
+    }
+
+    @Test
+    public void visitHigher_returnsQuestionRule_whenContainsAQuestionRule() {
+        Rule somerule = new SomeRule();
+        Rule expected = new QuestionRule(somerule);
+        DulesParser.HigherContext ctx = mock(DulesParser.HigherContext.class);
+        DulesParser.QuestionShowRuleContext questionShowRuleContext = mock(DulesParser.QuestionShowRuleContext.class);
+        when(ctx.questionShowRule()).thenReturn(questionShowRuleContext);
+        when(questionShowRuleContext.accept(visitor)).thenReturn(expected);
+
+        assertEquals(expected.getClass(), visitor.visitHigher(ctx).getClass());
     }
 }

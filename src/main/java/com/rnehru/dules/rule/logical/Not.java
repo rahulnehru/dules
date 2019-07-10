@@ -21,4 +21,11 @@ public final class Not extends LogicalRule {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null != obj &&
+                obj.getClass().equals(Not.class) &&
+                ((Not) obj).rules.equals(rules);
+    }
 }

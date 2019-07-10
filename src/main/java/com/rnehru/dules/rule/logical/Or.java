@@ -21,4 +21,11 @@ public final class Or extends LogicalRule {
         }
         return trueRules > 0;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null &&
+                obj.getClass().equals(Or.class) &&
+                ((Or) obj).rules.equals(rules);
+    }
 }

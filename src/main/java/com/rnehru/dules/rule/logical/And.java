@@ -21,4 +21,11 @@ public final class And extends LogicalRule {
         }
         return rules.size()==trueRules;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null &&
+                obj.getClass().equals(And.class) &&
+                ((And) obj).rules.equals(rules);
+    }
 }
