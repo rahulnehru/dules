@@ -22,11 +22,6 @@ public class AnswerDateAfterTest {
     }
 
     @Test
-    public void constructor_doesNotThrowException_whenComparisonDateInDateFormat() {
-        new AnswerDateAfter("parentPage", "question", "2010-01-01");
-    }
-
-    @Test
     public void evaluate_returnsFalse_whenContextIsNull() {
         assertFalse(new AnswerDateAfter("page", "question", "2010-01-01").evaluate(null));
     }

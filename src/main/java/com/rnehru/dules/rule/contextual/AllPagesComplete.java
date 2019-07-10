@@ -2,11 +2,14 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.rule.Rule;
 
 import static com.rnehru.dules.rule.Rule.contextInvalid;
 
 
-public final class AllPagesComplete extends StateDrivenRule {
+public final class AllPagesComplete implements Rule {
+
+    public AllPagesComplete() {}
 
     @Override
     public boolean evaluate(Context context) {

@@ -6,9 +6,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class DuleEvaluator implements Evaluator {
 
-    public DuleEvaluator() {}
-
     DuleParser parser = new DuleParser();
+
+    public DuleEvaluator() {}
 
     @Override
     public boolean evaluate(@NotNull Context context, @NotNull Rule rule){

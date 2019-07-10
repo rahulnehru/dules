@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class DuleParser implements Parser {
 
-    public DuleParser() {}
-
     DSLParser parser = new DSLParser();
+
+    public DuleParser() {}
 
     @Override
     public Rule parseRule(String dslRule) {
@@ -24,7 +24,6 @@ public class DuleParser implements Parser {
                 .map(dslRule -> parser.parse(dslRule))
                 .collect(Collectors.toList());
     }
-
 
 }
 
