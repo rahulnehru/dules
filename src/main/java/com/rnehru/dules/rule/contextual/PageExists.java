@@ -18,4 +18,11 @@ public final class PageExists extends ContextDrivenRule {
                         !page.getQuestionsAndAnswers().isEmpty()
         );
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null != obj &&
+                obj.getClass().equals(PageExists.class) &&
+                ((PageExists) obj).parentPage.equals(parentPage);
+    }
 }

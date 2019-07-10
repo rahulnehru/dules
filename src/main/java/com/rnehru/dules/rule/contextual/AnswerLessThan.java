@@ -24,4 +24,13 @@ public final class AnswerLessThan extends ContextDrivenRule {
                         Integer.parseInt(page.getQuestionsAndAnswers().get(question)) < comparisonValue
         );
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null != obj &&
+                obj.getClass().equals(AnswerLessThan.class) &&
+                ((AnswerLessThan) obj).parentPage.equals(parentPage) &&
+                ((AnswerLessThan) obj).question.equals(question) &&
+                ((AnswerLessThan) obj).comparisonValue == comparisonValue;
+    }
 }

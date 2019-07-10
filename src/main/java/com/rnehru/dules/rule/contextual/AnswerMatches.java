@@ -24,4 +24,13 @@ public final class AnswerMatches extends ContextDrivenRule {
                         page.getQuestionsAndAnswers().get(question).equals(answer)
         );
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return null != obj &&
+                obj.getClass().equals(AnswerMatches.class) &&
+                ((AnswerMatches) obj).answer.equals(answer) &&
+                ((AnswerMatches) obj).question.equals(question) &&
+                ((AnswerMatches) obj).parentPage.equals(parentPage);
+    }
 }
