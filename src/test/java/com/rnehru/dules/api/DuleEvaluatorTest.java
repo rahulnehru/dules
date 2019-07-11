@@ -1,10 +1,8 @@
 package com.rnehru.dules.api;
 
 import com.rnehru.dules.context.Context;
-import com.rnehru.dules.parser.DSLParser;
 import com.rnehru.dules.rule.Rule;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
