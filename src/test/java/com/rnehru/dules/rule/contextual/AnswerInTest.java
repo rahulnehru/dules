@@ -2,6 +2,7 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -30,61 +31,42 @@ public class AnswerInTest {
 
     @Test
     public void evaluate_returnsFalse_whenContextHasEmptyPageList() {
-        List<Page> pages = new ArrayList<>();
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().build();
 
         assertFalse(new AnswerIn("page", "question", options).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageListWithPagesButNotRelevantQuestion() {
-        List<Page> pages = new ArrayList<>();
-        pages.add(new Page("page", new HashMap<>()));
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{}).build();
 
         assertFalse(new AnswerIn("page", "question", options).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageListWithPagesWithQuestionButNullAnswer() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("question", null);
-        List<Page> pages = new ArrayList<>();
-        pages.add(new Page("page", qa));
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", null}}).build();
 
         assertFalse(new AnswerIn("page", "question", options).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageListWithPagesWithQuestionButEmptyAnswer() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("question", "");
-        List<Page> pages = new ArrayList<>();
-        pages.add(new Page("page", qa));
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", ""}}).build();
 
         assertFalse(new AnswerIn("page", "question", options).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageListWithPagesWithQuestionButWrongAnswer() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("question", "wronganswer");
-        List<Page> pages = new ArrayList<>();
-        pages.add(new Page("page", qa));
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "wronganswer"}}).build();
 
         assertFalse(new AnswerIn("page", "question", options).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsTrue_whenContextHasPageListWithPagesWithQuestionButAnswerInOptions() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("question", "REF");
-        List<Page> pages = new ArrayList<>();
-        pages.add(new Page("page", qa));
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "REF"}}).build();
 
         assertTrue(new AnswerIn("page", "question", options).evaluate(ctx));
     }

@@ -2,6 +2,7 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,49 +17,35 @@ public class PageExistsTest {
 
     @Test
     public void evaluate_returnsTrue_ifContextHasPageWithAnswers() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("q", "a");
-        Page page = new Page("page", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"q", "foobar"}}).build();
 
         assertTrue(new PageExists("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextHasPageWithNoAnswers() {
-        Map<String, String> qa = new HashMap<>();
-        Page page = new Page("page", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{}).build();
 
         assertFalse(new PageExists("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextHasPageWithNullQA() {
-        Page page = new Page("page", null);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", null).build();
 
         assertFalse(new PageExists("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextDoesNotHavePage() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("q", "a");
-        Page page = new Page("notpage", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("notpage", new String[][]{{"q", "foobar"}}).build();
 
         assertFalse(new PageExists("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifPagesAreEmpty() {
-        List<Page> pages = new ArrayList<>();
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().build();
 
         assertFalse(new PageExists("page").evaluate(ctx));
     }

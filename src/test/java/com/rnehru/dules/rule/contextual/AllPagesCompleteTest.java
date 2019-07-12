@@ -2,6 +2,7 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,32 +29,21 @@ public class AllPagesCompleteTest {
 
     @Test
     public void evaluate_returnsFalse_whenContextHasEmptyPages(){
-        List<Page> pages = new ArrayList<>();
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().build();
 
         assertFalse(new AllPagesComplete().evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasIncompletePages(){
-        Map<String, String> qa = new HashMap<>();
-        qa.put("foo", null);
-        Page p = new Page("page", qa);
-        List<Page> pages = new ArrayList<>();
-        pages.add(p);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"foo", null}}).build();
 
         assertFalse(new AllPagesComplete().evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsTrue_whenContextHasCompletePages(){
-        Map<String, String> qa = new HashMap<>();
-        qa.put("foo", "bar");
-        Page p = new Page("page", qa);
-        List<Page> pages = new ArrayList<>();
-        pages.add(p);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"foo", "bar"}}).build();
 
         assertTrue(new AllPagesComplete().evaluate(ctx));
     }

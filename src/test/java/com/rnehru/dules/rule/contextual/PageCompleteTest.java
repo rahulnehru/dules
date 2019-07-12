@@ -2,6 +2,7 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,65 +29,42 @@ public class PageCompleteTest {
 
     @Test
     public void evaluate_returnsFalse_whenContextHasEmptyPages() {
-        List<Page> pages = new ArrayList<>();
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().build();
 
         assertFalse(new PageComplete("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPagesWithNullQA() {
-        List<Page> pages = new ArrayList<>();
-        Page p = new Page("page", null);
-        pages.add(p);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", null).build();
 
         assertFalse(new PageComplete("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPagesWithEmptyQA() {
-        Map<String, String> qa = new HashMap<>();
-        List<Page> pages = new ArrayList<>();
-        Page p = new Page("page", qa);
-        pages.add(p);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{}).build();
 
         assertFalse(new PageComplete("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPagesWithQAWithIncompleteQuestion() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("q", null);
-        List<Page> pages = new ArrayList<>();
-        Page p = new Page("page", qa);
-        pages.add(p);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"q", null}}).build();
 
         assertFalse(new PageComplete("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsTrue_whenContextHasPagesWithQAWithCompleteEmptyQuestion() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("q", "");
-        List<Page> pages = new ArrayList<>();
-        Page p = new Page("page", qa);
-        pages.add(p);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"q", "a"}}).build();
 
         assertTrue(new PageComplete("page").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsTrue_whenContextHasPagesWithQAWithCompleteQuestion() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("q", "foobar");
-        List<Page> pages = new ArrayList<>();
-        Page p = new Page("page", qa);
-        pages.add(p);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"q", "foobar"}}).build();
 
         assertTrue(new PageComplete("page").evaluate(ctx));
     }

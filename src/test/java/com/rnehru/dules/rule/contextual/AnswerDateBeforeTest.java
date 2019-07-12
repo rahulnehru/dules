@@ -2,6 +2,7 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
 
 import java.time.format.DateTimeParseException;
@@ -34,70 +35,43 @@ public class AnswerDateBeforeTest {
 
     @Test
     public void evaluate_returnsFalse_whenContextHasEmptyPages() {
-        Context ctx = new Context(new ArrayList<>());
+        Context ctx = new ContextBuilder().build();
         assertFalse(new AnswerDateBefore("page", "question", "2010-01-01").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageButHasNullMap() {
-        Page page = new Page("page", null);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", null).build();
         assertFalse(new AnswerDateBefore("page", "question", "2010-01-01").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageButHasEmptyMap() {
-        Map<String, String> answers = new HashMap<>();
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{}).build();
         assertFalse(new AnswerDateBefore("page", "question", "2010-01-01").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageButHasMapWithNullAnswers() {
-        Map<String, String> answers = new HashMap<>();
-        answers.put("question", null);
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", null}}).build();
         assertFalse(new AnswerDateBefore("page", "question", "2010-01-01").evaluate(ctx));
     }
 
     @Test(expected = DateTimeParseException.class)
     public void evaluate_throwsException_whenContextHasAnswerForQuestionWhichIsIncorrectFormat() {
-        Map<String, String> answers = new HashMap<>();
-        answers.put("question", "bla");
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "bla"}}).build();
         new AnswerDateBefore("page", "question", "2010-01-01").evaluate(ctx);
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasAnswerForQuestionWhichIsAfterComparisonDate() {
-        Map<String, String> answers = new HashMap<>();
-        answers.put("question", "2020-01-01");
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "2020-01-01"}}).build();
         assertFalse(new AnswerDateBefore("page", "question", "2010-01-01").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsTrue_whenContextHasAnswerForQuestionWhichIsBeforeComparisonDate() {
-        Map<String, String> answers = new HashMap<>();
-        answers.put("question", "1970-01-01");
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "1970-01-01"}}).build();
         assertTrue(new AnswerDateBefore("page", "question", "2010-01-01").evaluate(ctx));
     }
 

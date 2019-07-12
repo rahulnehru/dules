@@ -2,6 +2,7 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,62 +17,42 @@ public class AnswerMatchesTest {
 
     @Test
     public void evaluate_returnsTrue_ifContextHasPageWithQuestionWithAnswerAsMatch() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("question", "answer");
-        Page page = new Page("page", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "answer"}}).build();
 
         assertTrue(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextHasPageWithQuestionWithAnswerThatDoesNotMatch() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("question", "notanswer");
-        Page page = new Page("page", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "notanswer"}}).build();
 
         assertFalse(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextHasPageWithQuestionThatDoesNotExist() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("notquestion", "answer");
-        Page page = new Page("page", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"notquestion", "answer"}}).build();
 
         assertFalse(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextWithPageThatDoesNotExist() {
-        Map<String, String> qa = new HashMap<>();
-        qa.put("question", "answer");
-        Page page = new Page("notpage", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("notpage", new String[][]{{"notquestion", "answer"}}).build();
 
         assertFalse(new AnswerMatches("page", "question", "answers").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextHasEmptyListOfPages() {
-        List<Page> pages = new ArrayList<>();
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().build();
 
         assertFalse(new AnswerMatches("page", "question", "answers").evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_ifContextHasPagesWithNoAnswers() {
-        Map<String, String> qa = new HashMap<>();
-        Page page = new Page("page", qa);
-        List<Page> pages = new ArrayList<>(); pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{}).build();
 
         assertFalse(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }

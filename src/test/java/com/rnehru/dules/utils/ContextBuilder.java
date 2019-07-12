@@ -15,13 +15,15 @@ public class ContextBuilder {
 
     public ContextBuilder withPageAnswer(@NotNull String p, String[][] qa) {
         Map<String, String> answers = new HashMap<>();
-        for (String[] aQa : qa) {
-            String q = aQa[0];
-            String a = aQa[1];
-            answers.put(q, a);
+        if (null != qa) {
+            for (String[] aQa : qa) {
+                String q = aQa[0];
+                String a = aQa[1];
+                answers.put(q, a);
+            }
+            pages.removeIf(page -> page.getName().equals(p));
+            pages.add(new Page(p, answers));
         }
-        pages.removeIf(page -> page.getName().equals(p));
-        pages.add(new Page(p, answers));
         return this;
     }
 

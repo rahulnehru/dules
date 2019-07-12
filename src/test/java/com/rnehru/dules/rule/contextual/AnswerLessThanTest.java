@@ -2,6 +2,7 @@ package com.rnehru.dules.rule.contextual;
 
 import com.rnehru.dules.context.Context;
 import com.rnehru.dules.context.Page;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,59 +28,43 @@ public class AnswerLessThanTest {
 
     @Test
     public void evaluate_returnsFalse_whenContextHasEmptyPages() {
-        Context ctx = new Context(new ArrayList<>());
+        Context ctx = new ContextBuilder().build();
+
         assertFalse(new AnswerLessThan("page", "question", 1).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageButHasNullMap() {
-        Page page = new Page("page", null);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", null).build();
+
         assertFalse(new AnswerLessThan("page", "question", 1).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageButHasEmptyMap() {
-        Map<String, String> answers = new HashMap<>();
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{}).build();
+
         assertFalse(new AnswerLessThan("page", "question", 1).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageButHasMapWithNullAnswers() {
-        Map<String, String> answers = new HashMap<>();
-        answers.put("question", null);
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", null}}).build();
+
         assertFalse(new AnswerLessThan("page", "question", 1).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsFalse_whenContextHasPageWithAnswerThatIsGreater() {
-        Map<String, String> answers = new HashMap<>();
-        answers.put("question", "2");
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "2"}}).build();
+
         assertFalse(new AnswerLessThan("page", "question", 1).evaluate(ctx));
     }
 
     @Test
     public void evaluate_returnsTrue_whenContextHasPageWithAnswerThatIsLess() {
-        Map<String, String> answers = new HashMap<>();
-        answers.put("question", "2");
-        Page page = new Page("page", answers);
-        List<Page> pages = new ArrayList<>();
-        pages.add(page);
-        Context ctx = new Context(pages);
+        Context ctx = new ContextBuilder().withPageAnswer("page", new String[][]{{"question", "2"}}).build();
+
         assertTrue(new AnswerLessThan("page", "question", 3).evaluate(ctx));
     }
 
