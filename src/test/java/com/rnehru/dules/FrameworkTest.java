@@ -127,28 +127,28 @@ public class FrameworkTest {
 
     @Test
     public void pageRule_answerIn_returnsTrueWhenAnswerBelongsInRef() {
-        Rule r = parser.parseRule(".page(p__q__$abc");
+        Rule r = parser.parseRule(".page(p__q__$abc)");
         Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "c"}}).build();
         assertTrue(r.evaluate(c));
     }
 
     @Test
     public void pageRule_answerIn_returnsFalseWhenAnswerIsNotInRef() {
-        Rule r = parser.parseRule(".page(p__q__$abc");
+        Rule r = parser.parseRule(".page(p__q__$abc)");
         Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "d"}}).build();
         assertFalse(r.evaluate(c));
     }
 
     @Test
     public void questionRule_answerIn_returnsTrueWhenAnswerBelongsInRef() {
-        Rule r = parser.parseRule(".question(p__q__$abc");
+        Rule r = parser.parseRule(".question(p__q__$abc)");
         Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "c"}}).build();
         assertTrue(r.evaluate(c));
     }
 
     @Test
     public void questionRule_answerIn_returnsFalseWhenAnswerIsNotInRef() {
-        Rule r = parser.parseRule(".question(p__q__$abc");
+        Rule r = parser.parseRule(".question(p__q__$abc)");
         Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "d"}}).build();
         assertFalse(r.evaluate(c));
     }
@@ -237,6 +237,109 @@ public class FrameworkTest {
         assertFalse(r.evaluate(c));
     }
 
+    @Test
+    public void pageRule_andRule_returnsTrueWhenBothRulesAreTrue() {
+        Rule r = parser.parseRule(".page(p__q__a & g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .withPageAnswer("g", new String[][]{{"t", "b"}})
+                .build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_andRule_returnsFalseWhenBothRulesAreNotTrue() {
+        Rule r = parser.parseRule(".page(p__q__a & g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_andRule_returnsTrueWhenBothRulesAreTrue() {
+        Rule r = parser.parseRule(".question(p__q__a & g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .withPageAnswer("g", new String[][]{{"t", "b"}})
+                .build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_andRule_returnsFalseWhenBothRulesAreNotTrue() {
+        Rule r = parser.parseRule(".question(p__q__a & g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_orRule_returnsTrueWhenBothRulesAreTrue() {
+        Rule r = parser.parseRule(".page(p__q__a || complete__g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .withPageAnswer("g", new String[][]{{"t", "b"}})
+                .build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_orRule_returnsTrueWhenOneRuleIsAreTrue() {
+        Rule r = parser.parseRule(".page(p__q__a || complete__g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_orRule_returnsFalseWhenBothRulesAreFalse() {
+        Rule r = parser.parseRule(".page(p__q__a || complete__g)");
+        Context c = new ContextBuilder().build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_orRule_returnsTrueWhenBothRulesAreTrue() {
+        Rule r = parser.parseRule(".question(p__q__a || complete__g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .withPageAnswer("g", new String[][]{{"t", "b"}})
+                .build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_orRule_returnsTrueWhenOneRuleIsAreTrue() {
+        Rule r = parser.parseRule(".question(p__q__a || complete__g)");
+        Context c = new ContextBuilder()
+                .withPageAnswer("p", new String[][]{{"q", "a"}})
+                .build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_orRule_returnsFalseWhenBothRulesAreFalse() {
+        Rule r = parser.parseRule(".question(p__q__a || complete__g)");
+        Context c = new ContextBuilder().build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_notRule_returnsTrueWhenInnerRuleReturnsFalse() {
+        Rule r = parser.parseRule(".page(!p__q__a)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "b"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_notRule_returnsFalseWhenInnerRuleReturnsTrue() {
+        Rule r = parser.parseRule(".page(!p__q__a)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "a"}}).build();
+        assertFalse(r.evaluate(c));
+    }
 
 }
 
