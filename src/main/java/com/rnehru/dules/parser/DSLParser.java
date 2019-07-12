@@ -6,9 +6,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 
 public class DSLParser {
 
-    public DSLParser() {}
-
     private DulesConcreteVisitor visitor = new DulesConcreteVisitor();
+
+    public DSLParser() {}
 
     public Rule parse(String dslRule) {
         DulesLexer dl = new DulesLexer(CharStreams.fromString(dslRule));
