@@ -2,15 +2,9 @@ package com.rnehru.dules;
 
 import com.rnehru.dules.api.DuleParser;
 import com.rnehru.dules.context.Context;
-import com.rnehru.dules.context.Page;
 import com.rnehru.dules.rule.Rule;
-import org.jetbrains.annotations.NotNull;
+import com.rnehru.dules.utils.ContextBuilder;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -131,28 +125,119 @@ public class FrameworkTests {
         assertFalse(r.evaluate(c));
     }
 
+    @Test
+    public void pageRule_answerIn_returnsTrueWhenAnswerBelongsInRef() {
+        Rule r = parser.parseRule(".page(p__q__$abc");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "c"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_answerIn_returnsFalseWhenAnswerIsNotInRef() {
+        Rule r = parser.parseRule(".page(p__q__$abc");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "d"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerIn_returnsTrueWhenAnswerBelongsInRef() {
+        Rule r = parser.parseRule(".question(p__q__$abc");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "c"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerIn_returnsFalseWhenAnswerIsNotInRef() {
+        Rule r = parser.parseRule(".question(p__q__$abc");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "d"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_answerLessThan_returnsTrueWhenAnswerIsLessThanValue() {
+        Rule r = parser.parseRule(".page(p__q__<1)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "0"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_answerLessThan_returnsFalseWhenAnswerIsNotLessThanValue() {
+        Rule r = parser.parseRule(".page(p__q__<1)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "2"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerLessThan_returnsTrueWhenAnswerIsLessThanValue() {
+        Rule r = parser.parseRule(".question(p__q__<1)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "0"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerLessThan_returnsFalseWhenAnswerIsNotLessThanValue() {
+        Rule r = parser.parseRule(".question(p__q__<1))");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "2"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_answerMoreThan_returnsTrueWhenAnswerIsMoreThanValue() {
+        Rule r = parser.parseRule(".page(p__q__>1)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "2"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_answerMoreThan_returnsFalseWhenAnswerIsNotMoreThanValue() {
+        Rule r = parser.parseRule(".page(p__q__>1)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "0"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerMoreThan_returnsTrueWhenAnswerIsMoreThanValue() {
+        Rule r = parser.parseRule(".question(p__q__>1)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "2"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerMoreThan_returnsFalseWhenAnswerIsNotMoreThanValue() {
+        Rule r = parser.parseRule(".question(p__q__>1)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "0"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_answerMatches_returnsTrueWhenAnswerMatches() {
+        Rule r = parser.parseRule(".page(p__q__a)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "a"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void pageRule_answerMatches_returnsFalseWhenAnswerDoesNotMatch() {
+        Rule r = parser.parseRule(".page(p__q__b)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "a"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerMatches_returnsTrueWhenAnswerMatches() {
+        Rule r = parser.parseRule(".question(p__q__a)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "a"}}).build();
+        assertTrue(r.evaluate(c));
+    }
+
+    @Test
+    public void questionRule_answerMatches_returnsFalseWhenAnswerDoesNotMatch() {
+        Rule r = parser.parseRule(".question(p__q__b)");
+        Context c = new ContextBuilder().withPageAnswer("p", new String[][]{{"q", "a"}}).build();
+        assertFalse(r.evaluate(c));
+    }
+
 
 }
 
 
-class ContextBuilder {
-
-    private List<Page> pages = new ArrayList<>();
-
-    protected ContextBuilder withPageAnswer(@NotNull String p, String[][] qa) {
-        Map<String, String> answers = new HashMap<>();
-        for (String[] aQa : qa) {
-            String q = aQa[0];
-            String a = aQa[1];
-            answers.put(q, a);
-        }
-        pages.removeIf(page -> page.getName().equals(p));
-        pages.add(new Page(p, answers));
-        return this;
-    }
-
-    protected Context build() {
-        return new Context(this.pages);
-    }
-
-}

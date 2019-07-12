@@ -22,7 +22,7 @@ public class AnswerMatchesTest {
         List<Page> pages = new ArrayList<>(); pages.add(page);
         Context ctx = new Context(pages);
 
-        assertTrue(new AnswerMatches("page", "answer", "question").evaluate(ctx));
+        assertTrue(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }
 
     @Test
@@ -33,7 +33,7 @@ public class AnswerMatchesTest {
         List<Page> pages = new ArrayList<>(); pages.add(page);
         Context ctx = new Context(pages);
 
-        assertFalse(new AnswerMatches("page", "answer", "question").evaluate(ctx));
+        assertFalse(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class AnswerMatchesTest {
         List<Page> pages = new ArrayList<>(); pages.add(page);
         Context ctx = new Context(pages);
 
-        assertFalse(new AnswerMatches("page", "answer", "question").evaluate(ctx));
+        assertFalse(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class AnswerMatchesTest {
         List<Page> pages = new ArrayList<>(); pages.add(page);
         Context ctx = new Context(pages);
 
-        assertFalse(new AnswerMatches("page", "answer", "question").evaluate(ctx));
+        assertFalse(new AnswerMatches("page", "question", "answers").evaluate(ctx));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class AnswerMatchesTest {
         List<Page> pages = new ArrayList<>();
         Context ctx = new Context(pages);
 
-        assertFalse(new AnswerMatches("page", "answer", "question").evaluate(ctx));
+        assertFalse(new AnswerMatches("page", "question", "answers").evaluate(ctx));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class AnswerMatchesTest {
         List<Page> pages = new ArrayList<>(); pages.add(page);
         Context ctx = new Context(pages);
 
-        assertFalse(new AnswerMatches("page", "answer", "question").evaluate(ctx));
+        assertFalse(new AnswerMatches("page", "question", "answer").evaluate(ctx));
     }
 
 }

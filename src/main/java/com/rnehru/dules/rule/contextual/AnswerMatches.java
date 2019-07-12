@@ -9,7 +9,7 @@ public final class AnswerMatches extends ContextDrivenRule {
     private final String answer;
     private final String question;
 
-    public AnswerMatches(String parentPage, String answer, String question) {
+    public AnswerMatches(String parentPage, String question, String answer) {
         this.parentPage = parentPage;
         this.answer = answer;
         this.question = question;
