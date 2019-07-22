@@ -1,0 +1,3 @@
+pageB:.page(pageA__questionA__answerB)
+pageB_questionTwo:.question(pageB__questionA__answerYes)
+pageB_questionThree:.question(pageB__questionA__answerNo)
